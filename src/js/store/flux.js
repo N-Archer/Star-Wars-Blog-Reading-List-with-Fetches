@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			favorites: ["darth vader", "C3PO"],
 			demo: [
 				{
 					title: "FIRST",
@@ -24,19 +25,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
-			changeColor: (index, color) => {
+			addToFavorites: name => {
 				//get the store
 				const store = getStore();
 
 				//we have to loop the entire demo array to look for the respective index
 				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				const newFavorites = store.favorites.push(name);
 
 				//reset the global store
-				setStore({ demo: demo });
+				setStore({ favorites: newFavorites });
 			}
 		}
 	};

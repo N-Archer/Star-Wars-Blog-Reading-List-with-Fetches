@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
-export const Navbar = () => {
+export const Navbar = props => {
+	const { store, actions } = useContext(Context);
+
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
@@ -11,11 +14,14 @@ export const Navbar = () => {
 				/>
 			</Link>
 			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">
-						Favorites <span className="badge badge-light" />
-					</button>
-				</Link>
+				<button className="btn btn-primary">
+					Favorites <span className="badge badge-light" />
+				</button>
+				<ul>
+					{store.favorites.map((elm, i) => {
+						return <li key={i}>{elm}</li>;
+					})}
+				</ul>
 			</div>
 		</nav>
 	);

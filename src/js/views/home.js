@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
-import { Card } from "../component/card.js";
+import { Card } from "../component/card";
 
 export const Home = () => {
 	const [characters, setCharacters] = useState([]);
@@ -61,11 +60,13 @@ export const Home = () => {
 						return (
 							<Card
 								img="https://upload.wikimedia.org/wikipedia/en/thumb/5/51/Stormtrooper_%28Star_Wars%29.png/220px-Stormtrooper_%28Star_Wars%29.png"
+								id={index + 1}
 								label1="Height:"
 								label2="Gender:"
 								label3="Eye Color:"
 								person={character}
 								key={index}
+								element={characters}
 							/>
 						);
 					})}
