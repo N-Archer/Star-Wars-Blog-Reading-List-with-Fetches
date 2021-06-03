@@ -29,7 +29,10 @@ export const Card = props => {
 						Details
 					</button>
 				</Link>
-				<button onClick={() => actions.addToFavorites()} type="button" className="btn btn-primary">
+				<button
+					onClick={() => actions.addToFavorites(props.person.name)}
+					type="button"
+					className="btn btn-primary">
 					<i className="far fa-heart" />
 				</button>
 			</div>
