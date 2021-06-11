@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Card = props => {
-    const { store, actions } = useContext(Context);
-    let found = store.favorites.find(elem => elem ==
-        props.person.name)
-    }
+	const { store, actions } = useContext(Context);
+	let found = store.favorites.find(elem => elem == props.person.name);
 
 	return (
 		<div className="d-flex flex-sm-row flex-wrap p-3">
@@ -34,11 +32,10 @@ export const Card = props => {
 						</button>
 					</Link>
 					<button
-						onClick={ found ? null : actions.addToFavorites(props.person.name)
-						}
+						onClick={found ? null : actions.addToFavorites(props.person.name)}
 						type="button"
 						className="btn btn-primary">
-						<i className="far fa-heart" />
+						{found ? <i className="fas fa-heart" /> : <i className="far fa-heart" />}
 					</button>
 				</div>
 			</div>

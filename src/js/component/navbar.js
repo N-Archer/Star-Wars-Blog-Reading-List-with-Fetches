@@ -35,7 +35,12 @@ export const Navbar = props => {
 					{store.favorites.map((elm, i) => {
 						return (
 							<li className="dropdown-item" key={i}>
-								{elm}
+								{elm}{" "}
+								<button type="button" className="close" aria-label="Close">
+									<span onClick={() => actions.removeFromFavorites(i)} aria-hidden="true">
+										&times;{" "}
+									</span>
+								</button>
 							</li>
 						);
 					})}
