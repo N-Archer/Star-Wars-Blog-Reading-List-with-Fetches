@@ -30,10 +30,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let newFavorites = getStore().favorites;
 				newFavorites.push(name);
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
+				setStore({ favorites: newFavorites });
+			},
+			removeFromFavorites: name => {
+				let newFavorites = getStore().favorites;
+				newFavorites.filter(!name);
 
-				//reset the global store
 				setStore({ favorites: newFavorites });
 			}
 		}
