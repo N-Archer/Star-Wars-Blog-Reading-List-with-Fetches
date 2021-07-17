@@ -5,22 +5,22 @@ import { Context } from "../store/appContext";
 
 export const Card = props => {
 	const { store, actions } = useContext(Context);
-	let found = store.favorites.find(elem => elem == props.person.name);
+	let found = store.favorites.find(elem => elem == props.entity_type.entity_name);
 
 	return (
 		<div className="d-flex flex-sm-row flex-wrap p-3">
 			<div className="card" style={{ width: "" }}>
 				<img src={props.img} className="card-img-top w-75 mx-auto" alt="..." />
 				<div className="card-body">
-					<h5 className="card-title">{props.person.name}</h5>
+					<h5 className="card-title">{props.entity_type.entity_name}</h5>
 					<p className="card-text">
-						{props.label1} {props.person.height}
+						{props.label1} {props.entity_type.height}
 					</p>
 					<p className="card-text">
-						{props.label2} {props.person.gender}
+						{props.label2} {props.entity_type.gender}
 					</p>
 					<p className="card-text">
-						{props.label3} {props.person.eye_color}
+						{props.label3} {props.entity_type.eye_color}
 					</p>
 					<Link
 						to={{
@@ -32,7 +32,12 @@ export const Card = props => {
 						</button>
 					</Link>
 					<button
-						onClick={found ? null : actions.addToFavorites(props.person.name)}
+						// onClick={found ? null : actions.addToFavorites(props.entity_type.name)}
+						onClick={
+							found
+								? null
+								: actions.addToFavorites(props.entity_type.entity_name, (props.entity_name = ""))
+						}
 						type="button"
 						className="btn btn-primary">
 						{found ? <i className="fas fa-heart" /> : <i className="far fa-heart" />}
@@ -44,7 +49,8 @@ export const Card = props => {
 };
 
 Card.propTypes = {
-	person: PropTypes.object,
+	entity_name: PropTypes.object,
+	entity_type: PropTypes.object,
 	label1: PropTypes.string,
 	label2: PropTypes.string,
 	label3: PropTypes.string,

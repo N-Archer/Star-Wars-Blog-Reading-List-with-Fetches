@@ -35,7 +35,7 @@ export const Navbar = props => {
 					{store.favorites.map((elm, i) => {
 						return (
 							<li className="dropdown-item" key={i}>
-								{elm}{" "}
+								{elm.entity_name}{" "}
 								<button type="button" className="close" aria-label="Close">
 									<span onClick={() => actions.removeFromFavorites(i)} aria-hidden="true">
 										&times;{" "}
