@@ -37,7 +37,9 @@ export const Navbar = props => {
 							<li className="dropdown-item" key={i}>
 								{elm.entity_name}{" "}
 								<button type="button" className="close" aria-label="Close">
-									<span onClick={() => actions.removeFromFavorites(i)} aria-hidden="true">
+									<span
+										onClick={() => actions.removeFromFavorites(elm.entity_type, elm.entity_id)}
+										aria-hidden="true">
 										&times;{" "}
 									</span>
 								</button>

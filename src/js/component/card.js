@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 
 export const Card = props => {
 	const { store, actions } = useContext(Context);
-	let found = store.favorites.find(elem => elem == props.entity_type.entity_name);
+	let found = store.favorites.find(elem => elem.name == props.entity_type);
 
 	return (
 		<div className="d-flex flex-sm-row flex-wrap p-3">
@@ -33,11 +33,7 @@ export const Card = props => {
 					</Link>
 					<button
 						// onClick={found ? null : actions.addToFavorites(props.entity_type.name)}
-						onClick={
-							found
-								? null
-								: actions.addToFavorites(props.entity_type.entity_name, (props.entity_name = ""))
-						}
+						onClick={found ? null : actions.addToFavorites(props.entity_type, props.person.name, props.id)}
 						type="button"
 						className="btn btn-primary">
 						{found ? <i className="fas fa-heart" /> : <i className="far fa-heart" />}
@@ -49,8 +45,8 @@ export const Card = props => {
 };
 
 Card.propTypes = {
-	entity_name: PropTypes.object,
-	entity_type: PropTypes.object,
+	person: PropTypes.object,
+	entity_type: PropTypes.string,
 	label1: PropTypes.string,
 	label2: PropTypes.string,
 	label3: PropTypes.string,

@@ -36,18 +36,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("Looks like there was a problem: \n", error);
 					});
 			},
-			addToFavorites: () => {
+			addToFavorites: (entity_type, entity_name, entity_id) => {
+				let endpoint = "";
 				if (entity_type == "person") {
-					let type = "/favorite/person/";
+					endpoint = "/favorite/person/";
 				} else {
-					let entity_type = "/favorite/planet";
+					endpoint = "/favorite/planet/";
 				}
-				fetch(getStore().apiAddress + "/favorite/person/" + entity_id, {
+				fetch(getStore().apiAddress + endpoint + entity_id, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						name: name,
-						username
+						entity_name: entity_name,
+						username: getStore().user
+					})
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						console.log(responseJson);
+
+						setStore({ favorites: responseJson.favorites });
+					})
+					.catch(function(error) {
+						console.log("Looks like there was a problem: \n", error);
+					});
+			},
+			removeFromFavorites: (entity_type, entity_id) => {
+				let endpoint = "";
+				if (entity_type == "person") {
+					endpoint = "/favorite/person/";
+				} else {
+					endpoint = "/favorite/planet/";
+				}
+				fetch(getStore().apiAddress + endpoint + entity_id, {
+					method: "DELETE",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						username: getStore().user
 					})
 				})
 					.then(function(response) {
@@ -73,13 +103,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
-			addToFavorites: name => {
-				//get the store
-				let newFavorites = getStore().favorites;
-				newFavorites.push(name);
+			// addToFavorites: name => {
+			// 	//get the store
+			// 	let newFavorites = getStore().favorites;
+			// 	newFavorites.push(name);
 
-				setStore({ favorites: newFavorites });
-			},
+			// 	setStore({ favorites: newFavorites });
+			// },
 			removeFromFavorites: index => {
 				let newFavorites = getStore().favorites;
 				let newestFavorites = newFavorites.filter((e, i) => i != index);

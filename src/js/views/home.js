@@ -65,8 +65,8 @@ export const Home = () => {
 								label2="Gender:"
 								label3="Eye Color:"
 								person={character}
+								entity_type="person"
 								key={index}
-								element={characters}
 							/>
 						);
 					})}
