@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../../styles/home.scss";
 import { Card } from "../component/card";
+import { Context } from "../store/appContext";
 
 export const Home = () => {
+	const [store, actions] = useContext(Context);
 	const [characters, setCharacters] = useState([]);
 	const [planets, setPlanets] = useState([]);
 	const [vehicles, setVehicles] = useState([]);
@@ -53,6 +55,12 @@ export const Home = () => {
 
 	return (
 		<div className="container-fluid">
+			<button onClick={() => actions.login} className="btn btn-success">
+				LogIn
+			</button>
+			<button onClick={() => actions.get_auth} className="btn btn-success">
+				Get Auth
+			</button>
 			<h1>Characters</h1>
 			<div className="d-flex">
 				{characters.length > 1 &&

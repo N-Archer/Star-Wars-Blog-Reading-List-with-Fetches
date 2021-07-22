@@ -18,6 +18,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
+			login: (username, password) => {
+				fetch(getStore().apiAddress + endpoint + entity_id, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						username: "pedro",
+						password: "soccer"
+					})
+				})
+					.then(function(response) {
+						if (!response.status) {
+							throw Error(response.statusText);
+						}
+						if (response.status == 401) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						// console.log(responseAsJson);
+						// setStore({ users: responseAsJson.token });
+						localStorage.setItem("jwt-token", responseAsJson.token);
+					})
+					.catch(function(error) {
+						console.log("Looks like there was a problem: \n", error);
+					});
+			},
+
+			get_auth: (username, password) => {
+				// retrieve token form localStorage
+				const token = localStorage.getItem("jwt-token");
+
+				fetch(getStore().apiAddress + "/auth", {
+					method: "GET",
+					headers: { Authorization: "Bearer " + token } // ⬅ authorization token
+				})
+					.then(resp => {
+						if (resp.ok) resp.json();
+						else if (resp.status === 403) {
+							console.log("Missing or invalid token");
+						} else {
+							throw Error("Unknown error");
+						}
+					})
+					.then(data => {
+						// success
+						console.log("This is the data your requested", data);
+					})
+					.catch(error => console.error("There has been an uknown error", error));
+			},
 			// Use getActions to call a function within a fuction
 			loadFavorites: () => {
 				fetch(getStore().apiAddress + "/" + getStore().user + "/favorites")
